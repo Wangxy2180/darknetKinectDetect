@@ -20,6 +20,7 @@ decaf/
 submission/
 # cfg/
 # build/darknet/*
+build/darknet/x64/Release
 # build_*/
 # !build/darknet/YoloWrapper.cs
 .fuse*
