@@ -22,7 +22,7 @@ extern "C" {
     void darknetKinectDrawCenterLabel(image im, int left, int top, int bot, int right);
     void darknetKinectGetDepthC(KinectDepthFrameReaderC* pDepthFrameReaderC, KinectCoordinateMapperC* pMapperC, CSYS3DInColor* cen);
 
-
+    void darknetCSYSPixelToWorld(CSYS3DInColor PixelObjCenInner, CSYS3DInColor* WorldObjCen);
 #ifdef __cplusplus
 }
 #endif

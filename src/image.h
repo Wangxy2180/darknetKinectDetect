@@ -101,7 +101,7 @@ void test_resize(char *filename);
 
 
 void draw_detections_v3_cen_mogai(image im, detection *dets, int num, float thresh, char **names, image **alphabet,
-    int classes, int ext_output, CSYS3DInColor* catch_obj_center_3d, KinectDepthFrameReaderC* pDepthFrameReaderC, KinectCoordinateMapperC* pMapperC);
+    int classes, int ext_output, CSYS3DInColor* catch_obj_center_3d, CSYS3DInColor* worldObjCen, KinectDepthFrameReaderC* pDepthFrameReaderC, KinectCoordinateMapperC* pMapperC);
 #ifdef __cplusplus
 }
 #endif

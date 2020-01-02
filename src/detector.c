@@ -1412,8 +1412,13 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         draw_detections_v3(im, dets, nboxes, thresh, names, alphabet, l.classes, ext_output);
 #else
         double drawTime = get_time_point();
-        CSYS3DInColor objCen = { 0 };
-        draw_detections_v3_cen_mogai(im, dets, nboxes, thresh, names, alphabet, l.classes, ext_output, &objCen, pDepthFrameReaderC, pCoorMapperC);
+        CSYS3DInColor PixelObjCen = { 0 };
+        CSYS3DInColor WorldObjCen = { 0 };
+
+        draw_detections_v3_cen_mogai(im, dets, nboxes, thresh, names, alphabet, l.classes, ext_output,
+            &PixelObjCen, &WorldObjCen, pDepthFrameReaderC, pCoorMapperC);
+        printf("detector pixel (%d,%d,%d)\n", PixelObjCen.x, PixelObjCen.y, PixelObjCen.z);
+        printf("detector world (%d,%d,%d)\n", WorldObjCen.x, WorldObjCen.y, WorldObjCen.z);
         ////printf("draw time: %lf\n", ((double)get_time_point() - drawTime) / 1000);
         ////printf("whiletime4: %lf\n", ((double)get_time_point() - whileTime) / 1000);
 #endif // !IMG_FROM_KINECT

@@ -1647,7 +1647,7 @@ LIB_API void copy_image_from_bytes(image im, char *pdata)
 
 
 void draw_detections_v3_cen_mogai(image im, detection *dets, int num, float thresh, char **names, image **alphabet,
-    int classes, int ext_output, CSYS3DInColor* catch_obj_center_3d, KinectDepthFrameReaderC* pDepthFrameReaderC,KinectCoordinateMapperC* pMapperC)
+    int classes, int ext_output, CSYS3DInColor* catch_obj_center_3d, CSYS3DInColor* worldObjCen, KinectDepthFrameReaderC* pDepthFrameReaderC,KinectCoordinateMapperC* pMapperC)
 {
     static int frame_id = 0;
     frame_id++;
@@ -1753,18 +1753,28 @@ void draw_detections_v3_cen_mogai(image im, detection *dets, int num, float thre
                 (*catch_obj_center_3d).z = -1;
 
 
+
                 printf("center names %s\n", names[selected_detections[i].best_class]);
                 darknetKinectDrawCenterLabel(im, left, top, bot, right);
 
                 darknetKinectGetDepthC(pDepthFrameReaderC, pMapperC, catch_obj_center_3d);
 
-                printf("obj cen(%d,%d,%d)\n", (*catch_obj_center_3d).x, (*catch_obj_center_3d).y, (*catch_obj_center_3d).z);
+                darknetCSYSPixelToWorld((*catch_obj_center_3d), worldObjCen);
 
-                char center_buff[50] = { 0 };
-                sprintf(center_buff, "pixel ( %d , %d , %d )", x_center_wxy, y_center_wxy,(*catch_obj_center_3d).z);
-                image center_label = get_label_v3(alphabet, center_buff, (im.h*.03));
-                draw_label(im, y_center_wxy, x_center_wxy, center_label, rgb);
-                free_image(center_label);
+                printf("pixel obj cen(%d,%d,%d)\n", (*catch_obj_center_3d).x, (*catch_obj_center_3d).y, (*catch_obj_center_3d).z);
+                printf("world obj cen(%d,%d,%d)\n", (*worldObjCen).x, (*worldObjCen).y, (*worldObjCen).z);
+
+                char pixel_center_buff[50] = { 0 };
+                sprintf(pixel_center_buff, "pixel ( %d , %d , %d )", x_center_wxy, y_center_wxy,(*catch_obj_center_3d).z);
+                image pixel_center_label = get_label_v3(alphabet, pixel_center_buff, (im.h*.03));
+                draw_label(im, y_center_wxy, x_center_wxy, pixel_center_label, rgb);
+                free_image(pixel_center_label);
+
+                char world_center_buff[50] = { 0 };
+                sprintf(world_center_buff, "world ( %d , %d , %d )", (*worldObjCen).x, (*worldObjCen).y, (*worldObjCen).z);
+                image world_center_label = get_label_v3(alphabet, world_center_buff, (im.h*.03));
+                draw_label(im, y_center_wxy+50, x_center_wxy, world_center_label, rgb);
+                free_image(world_center_label);
             }
             /*********************************Ä§¸Äcenter over******************************************************/
         }

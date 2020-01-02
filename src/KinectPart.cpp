@@ -19,6 +19,10 @@
 extern "C" {
 //#endif // _cplueplus
 
+    const float intrinsicFx = 1051.9;
+    const float intrinsicFy = 1050.6;
+    const float intrinsicU0 = 965.833;
+    const float intrinsicV0 = 531.5299;
 
 
 CSYS3DInColor globalPixelCoor = { 0 };
@@ -176,7 +180,28 @@ void putTextInLBPoint(std::string displayedText, cv::Mat* innerImage, cv::Point 
     putText((*innerImage), displayedText, innerTextLeftBottomPoint, font_face, font_scale, cv::Scalar(0, 0, 0), thickness, 8, 0);
 }
 
+bool CSYSPixelToCameraInColor(CSYS3DInColor* CameraCSYSPoint, CSYS3DInColor pixelCSYSPoint3D)
+{//CSYS Coordinate System
+    int Xc = 0;
+    int Yc = 0;
+    int Zc = 0;
+    Zc = pixelCSYSPoint3D.z / 1;
+    //Zc = tempZc / (255.0/4500);
+    Xc = (Zc * (pixelCSYSPoint3D.x - intrinsicU0)) / intrinsicFx;
+    Yc = (Zc * (pixelCSYSPoint3D.x - intrinsicV0)) / intrinsicFy;
+   (*CameraCSYSPoint).x = Xc;
+   (*CameraCSYSPoint).y = Yc;
+   (*CameraCSYSPoint).z = Zc;
+   return true;
+}
 
+bool CSYSCameraToWorldInColor(CSYS3DInColor* innerWorldCoordinate, CSYS3DInColor cameraCSYSPoint)
+{
+    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
+    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
+    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
+    return true;
+}
 
 /*****************************************只在内部调用over*************************************************************/
 /*留白*/
@@ -404,6 +429,13 @@ void darknetKinectDrawCenterLabel(image im, int left, int top, int bot, int righ
     ////im = mat_to_image_mogai(drawIt);
     //////show_image(im, "qwe");
     ////cv::imshow("123", drawIt);
+}
+
+void darknetCSYSPixelToWorld(CSYS3DInColor PixelObjCenInner, CSYS3DInColor* WorldObjCen)
+{
+    CSYS3DInColor cameraCSYSPoint = { -1 };
+    CSYSPixelToCameraInColor(&cameraCSYSPoint, PixelObjCenInner);
+    CSYSCameraToWorldInColor(WorldObjCen, cameraCSYSPoint);
 }
 
 /************************************外部调用over********************************************/
