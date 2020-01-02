@@ -1,0 +1,1 @@
+darknet.exe detector test data/ballball.data yolov3_ballball.cfg backup\thirdTrain\yolov3-voc-myObj_17000.weights

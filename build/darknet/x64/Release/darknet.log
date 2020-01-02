@@ -1,52 +1,4 @@
-﻿  detector.c
-c:\program files\nvidia gpu computing toolkit\cuda\v10.1\include\cuda_fp16.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\activations.h(36): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\activations.h(92): warning C4244: “return”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(65): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(71): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(86): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(173): warning C4305: “函数”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(179): warning C4244: “=”: 从“long double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(180): warning C4244: “=”: 从“long double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(204): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(243): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(248): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(250): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(251): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(174): warning C4244: “初始化”: 从“long double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(175): warning C4244: “初始化”: 从“long double”转换到“int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(380): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(381): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(373): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(374): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(375): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(376): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(405): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(406): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(398): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(399): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(400): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(401): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(426): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(427): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(419): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(420): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(421): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(422): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(455): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(497): warning C4305: “初始化”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(498): warning C4305: “初始化”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(592): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(607): warning C4305: “初始化”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(609): warning C4305: “初始化”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(716): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(1122): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(736): warning C4305: “初始化”: 从“double”到“const float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(737): warning C4305: “初始化”: 从“double”到“const float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(1169): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(1333): warning C4305: “初始化”: 从“double”到“float”截断
-d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\detector.c(1555): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  KinectPart.cpp
+﻿  KinectPart.cpp
 c:\program files\nvidia gpu computing toolkit\cuda\v10.1\include\cuda_fp16.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\kinectpart.cpp(22): warning C4305: “初始化”: 从“double”到“float”截断
 d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\kinectpart.cpp(23): warning C4305: “初始化”: 从“double”到“float”截断
@@ -67,8 +19,8 @@ d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\kinectpart.cpp(6
 d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\kinectpart.cpp(190): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
 d:\intelligentcatchbottle\sample\yolosample3\darknet-master\src\kinectpart.cpp(191): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
   正在生成代码
-  15 of 1548 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+  3 of 1548 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    43 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   darknet.vcxproj -> D:\intelligentCatchBottle\sample\YOLOSample3\darknet-master\build\darknet\x64\darknet.exe

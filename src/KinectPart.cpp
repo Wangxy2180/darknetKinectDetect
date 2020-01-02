@@ -188,18 +188,19 @@ bool CSYSPixelToCameraInColor(CSYS3DInColor* CameraCSYSPoint, CSYS3DInColor pixe
     Zc = pixelCSYSPoint3D.z / 1;
     //Zc = tempZc / (255.0/4500);
     Xc = (Zc * (pixelCSYSPoint3D.x - intrinsicU0)) / intrinsicFx;
-    Yc = (Zc * (pixelCSYSPoint3D.x - intrinsicV0)) / intrinsicFy;
+    Yc = (Zc * (pixelCSYSPoint3D.y - intrinsicV0)) / intrinsicFy;
    (*CameraCSYSPoint).x = Xc;
    (*CameraCSYSPoint).y = Yc;
    (*CameraCSYSPoint).z = Zc;
+   std::cout << "cam obj cen  (" << (*CameraCSYSPoint).x << "," << (*CameraCSYSPoint).y << "," << (*CameraCSYSPoint).z << ")" << std::endl;
    return true;
 }
 
 bool CSYSCameraToWorldInColor(CSYS3DInColor* innerWorldCoordinate, CSYS3DInColor cameraCSYSPoint)
 {
-    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
-    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
-    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-99);
+    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
+    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
+    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
     return true;
 }
 
@@ -291,8 +292,9 @@ image darknetKinect_load_imageC(KinectColorFrameReaderC** pColorFrameReaderC)
     if (getKinectColorImageC(&(*pColorFrameReaderC), mColorPoint, &mColorImage) == true)
     {
         cv::Mat CIResize = cv::Mat::zeros(360, 640, CV_8UC3);
+        //colorImage resize
         resize(mColorImage, CIResize, CIResize.size());
-        imshow("123", CIResize);
+        imshow("resize", CIResize);
         //cv::waitKey(33);
     }
 
@@ -304,8 +306,11 @@ image darknetKinect_load_imageC(KinectColorFrameReaderC** pColorFrameReaderC)
     ////    cv::imshow("RGB", outImage);
     ////}
     //这个函数应该返回im类型
-    return mat_to_image_mogai(BGRColorImage);
-    //return mat_to_image_mogai(mColorImage);
+    cv::Mat BGRflipColorImage = cv::Mat(1080, 1920, CV_8UC3);
+    //反转彩色图像，然后识别，深度图像坐标反转在读取缓冲区做的
+    cv::flip(BGRColorImage, BGRflipColorImage, 1);
+    return mat_to_image_mogai(BGRflipColorImage);
+    //return mat_to_image_mogai(BGRColorImage);
 }
 
 KinectCoordinateMapperC* darknetKinectOpenMapperC(KinectSensorC** pSensorC)
@@ -381,7 +386,8 @@ void darknetKinectGetDepthC(KinectDepthFrameReaderC* pDepthFrameReaderC,KinectCo
     {
 		DepthSpacePoint objCenPointColor2Depth = { 0 };
         //std::cout << "cen is" << (*cen).x << " " << (*cen).y << " " << (*cen).z << std::endl;
-		objCenPointColor2Depth = colorSiteInDepth[(*cen).y * 1920 + (*cen).x];
+		objCenPointColor2Depth = colorSiteInDepth[(*cen).y * 1920 +1920- (*cen).x];
+        //x坐标翻转
         std::cout << "depth cen is ( " << objCenPointColor2Depth.X << " , " << objCenPointColor2Depth.Y << " )" << std::endl;
 
 
@@ -404,6 +410,7 @@ void darknetKinectGetDepthC(KinectDepthFrameReaderC* pDepthFrameReaderC,KinectCo
 		mDepthImage.convertTo(img8Bit, CV_8U);
 		cv::imshow("de", img8Bit);
 		//cv::waitKey(33);
+        //统一最后去wait
 	}
 }
 
