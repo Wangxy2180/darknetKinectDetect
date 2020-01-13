@@ -18,11 +18,23 @@
 
 extern "C" {
 //#endif // _cplueplus
+    //我自己的
+    //const float intrinsicFx = 1051.9;
+    //const float intrinsicFy = 1050.6;
+    //const float intrinsicU0 = 965.833;
+    //const float intrinsicV0 = 531.5299;
+    //第一个
+    //const float intrinsicFx = 1062.6026;
+    //const float intrinsicFy = 1066.8118;
+    //const float intrinsicU0 = 950.9148;
+    //const float intrinsicV0 = 541.2620;
+    //第二个
+    const float intrinsicFx = 1053.4631;
+    const float intrinsicFy = 1055.7157;
+    const float intrinsicU0 = 951.2382;
+    const float intrinsicV0 = 528.5615;
 
-    const float intrinsicFx = 1051.9;
-    const float intrinsicFy = 1050.6;
-    const float intrinsicU0 = 965.833;
-    const float intrinsicV0 = 531.5299;
+    float externalParam[4][4] = {};
 
 
 CSYS3DInColor globalPixelCoor = { 0 };
@@ -186,6 +198,7 @@ bool CSYSPixelToCameraInColor(CSYS3DInColor* CameraCSYSPoint, CSYS3DInColor pixe
     int Yc = 0;
     int Zc = 0;
     Zc = pixelCSYSPoint3D.z / 1;
+    //Zc = pixelCSYSPoint3D.z - 22;
     //Zc = tempZc / (255.0/4500);
     Xc = (Zc * (pixelCSYSPoint3D.x - intrinsicU0)) / intrinsicFx;
     Yc = (Zc * (pixelCSYSPoint3D.y - intrinsicV0)) / intrinsicFy;
@@ -198,9 +211,18 @@ bool CSYSPixelToCameraInColor(CSYS3DInColor* CameraCSYSPoint, CSYS3DInColor pixe
 
 bool CSYSCameraToWorldInColor(CSYS3DInColor* innerWorldCoordinate, CSYS3DInColor cameraCSYSPoint)
 {
-    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
-    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
-    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-1) + cameraCSYSPoint.y*(-1) + cameraCSYSPoint.z*(-1) + (-999);
+    //第一组
+    //(*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5215) + cameraCSYSPoint.y*(0.0265) + cameraCSYSPoint.z*(-0.8525) + (418.7093);
+    //(*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8532) + cameraCSYSPoint.y*(0.0002) + cameraCSYSPoint.z*(-0.5217) + (1039.459);
+    //(*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0136) + cameraCSYSPoint.y*(-0.9996) + cameraCSYSPoint.z*(-0.0227) + (720.1693);
+    //第二组
+    //(*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5186) + cameraCSYSPoint.y*(0.0262) + cameraCSYSPoint.z*(-0.8546) + (420.1477);
+    //(*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8549) + cameraCSYSPoint.y*(0.0006) + cameraCSYSPoint.z*(-0.5188) + (1038.2340);
+    //(*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0131) + cameraCSYSPoint.y*(-0.9997) + cameraCSYSPoint.z*(-0.0227) + (719.3361);
+    //第三组
+    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5211) + cameraCSYSPoint.y*(0.0307) + cameraCSYSPoint.z*(-0.8530) + (414.3972);
+    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8533) + cameraCSYSPoint.y*(-0.0019) + cameraCSYSPoint.z*(-0.5214) + (1038.0010);
+    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0176) + cameraCSYSPoint.y*(-0.9995) + cameraCSYSPoint.z*(-0.0252) + (707.2265);
     return true;
 }
 
@@ -399,6 +421,8 @@ void darknetKinectGetDepthC(KinectDepthFrameReaderC* pDepthFrameReaderC,KinectCo
 		else if (objCenPointColor2Depth.X >= 0 && objCenPointColor2Depth.X < mDepthImage.cols && objCenPointColor2Depth.Y >= 0 && objCenPointColor2Depth.Y < mDepthImage.rows)
 		{
 			(*cen).z = depthBuffer[(int)(objCenPointColor2Depth.Y)*mDepthImage.cols + (int)(objCenPointColor2Depth.X)];
+            (*cen).z = (*cen).z + 33;
+            //获取的深度需要加上网球的半径
 		}
 	}
 	else std::cout << "坐标变换失败" << std::endl;
