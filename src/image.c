@@ -1744,7 +1744,7 @@ void draw_detections_v3_cen_mogai(image im, detection *dets, int num, float thre
             /*********************************魔改置信度over******************************************************/
             /*********************************魔改center******************************************************/
                            //改为只有tabletennis才画中点
-            if (strcmp(names[selected_detections[i].best_class], "tennis") == 0)
+            //if (strcmp(names[selected_detections[i].best_class], "tennis") == 0)
             {
                 int x_center_wxy = (left + right) / 2;
                 int y_center_wxy = (top + bot) / 2;
