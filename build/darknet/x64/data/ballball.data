@@ -3,7 +3,7 @@ train  = D:/intelligentCatchBottle/sample/YOLOSample2/darknet-master/scripts/201
 valid  = ../../../scripts/2012_test.txt
 #train  = data/train.txt
 #valid  = data/test.txt
-#names = data/ballball.names
-names = D:\intelligentCatchBottle\sample\YOLOSample3\darknet-master\build\darknet\x64\data\ballball.names
+names = data/ballball.names
+#names = D:\intelligentCatchBottle\sample\YOLOSample3\darknet-master\build\darknet\x64\data\ballball.names
 backup = backup/
 
