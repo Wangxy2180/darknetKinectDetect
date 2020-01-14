@@ -392,7 +392,7 @@ int wait_key_cv(int delay)
 int wait_until_press_key_cv()
 {
 #ifdef IMG_FROM_KINECT
-    return wait_key_cv(33);//魔改：修改时间
+    return wait_key_cv(1);//魔改：修改时间
 #else
     return wait_key_cv(0);//魔改：修改时间
 #endif
