@@ -9,7 +9,10 @@
 #include "option_list.h"
 
 #include "KinectPart.h"
+//#define DETECT_EVERY_FRAME
+#define RUN_TIME_PRINT
 //魔改
+
 
 
 
@@ -1357,7 +1360,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
                 if (input[strlen(input) - 1] == 0x0d) input[strlen(input) - 1] = 0;
         }
         else {
-            
+
             //此中内容为原始内容
 #ifndef IMG_FROM_KINECT
             printf("Enter Image Path: ");
@@ -1370,7 +1373,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             //printf("这里的代码都被注释掉了\n");
 #endif // IMG_FROM_KINECT
         }
-        printf("ifTime %lf\n", ((double)get_time_point() - whileTime) / 1000);
         //image im;
         //image sized = load_image_resize(input, net.w, net.h, net.c, &im);
 
@@ -1381,19 +1383,33 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 #ifdef IMG_FROM_KINECT
         double imTime = get_time_point();
         image im = darknetKinect_load_imageC(&pColorFrameReaderC);
-        ////printf("imTime is %lf\n", ((double)get_time_point() - imTime) / 1000);
-        ////printf("whileTime1 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+
+#ifdef RUN_TIME_PRINT
+        printf("imTime is %lf\n", ((double)get_time_point() - imTime) / 1000);
+        printf("whileTime1 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif // !RUN_TIME_PRINT
+
 #endif // IMG_FROM_KINECT
         /*魔改image im部分over*/
 
-
+#ifndef DETECT_EVERY_FRAME
+        //这里有个if
+        static int detectFlag = 0;
+        detectFlag++;
+        if (detectFlag==10)
+        {
+            detectFlag = 0;
+#endif // !DETECT_EVERY_FRAME
         double boxTime = get_time_point();
         image sized;
-        if(letter_box) sized = letterbox_image(im, net.w, net.h);
+        if (letter_box) sized = letterbox_image(im, net.w, net.h);
         else sized = resize_image(im, net.w, net.h);
         layer l = net.layers[net.n - 1];
-        ////printf("boxTime is %lf\n", ((double)get_time_point() - boxTime) / 1000);
-        ////printf("whileTime2 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+
+#ifdef RUN_TIME_PRINT
+        printf("boxTime is %lf\n", ((double)get_time_point() - boxTime) / 1000);
+        printf("whileTime2 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif // RUN_TIME_PRINT
 
         float *X = sized.data;
 
@@ -1401,8 +1417,8 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         double time = get_time_point();
         network_predict(net, X);
         //network_predict_image(&net, im); letterbox = 1;
-        ////printf("%s: Predicted in %lf milli-seconds.\n", input, ((double)get_time_point() - time) / 1000);
-        ////printf("whileTime3 %lf\n", ((double)get_time_point() - whileTime) / 1000);
+        printf("%s: Predicted in %lf milli-seconds.\n", input, ((double)get_time_point() - time) / 1000);
+        printf("whileTime3 %lf\n", ((double)get_time_point() - whileTime) / 1000);
         //printf("%s: Predicted in %f seconds.\n", input, (what_time_is_it_now()-time));
 
         int nboxes = 0;
@@ -1419,8 +1435,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             &PixelObjCen, &WorldObjCen, pDepthFrameReaderC, pCoorMapperC);
         printf("detector pixel (%d,%d,%d)\n", PixelObjCen.x, PixelObjCen.y, PixelObjCen.z);
         printf("detector world (%d,%d,%d)\n", WorldObjCen.x, WorldObjCen.y, WorldObjCen.z);
-        ////printf("draw time: %lf\n", ((double)get_time_point() - drawTime) / 1000);
-        ////printf("whiletime4: %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#ifdef RUN_TIME_PRINT
+        printf("draw time: %lf\n", ((double)get_time_point() - drawTime) / 1000);
+        printf("whiletime4: %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif // RUN_TIME_PRINT
+
 #endif // !IMG_FROM_KINECT
         //save_image(im, "predictions");//魔改这句应该注释掉吧，浪费时间啊
 
@@ -1428,8 +1447,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         if (!dont_show) {
             show_image(im, "predictions");
         }
-        ////printf("showTime is %lf\n", ((double)get_time_point() - showTime) / 1000);
-        ////printf("whileTime5 %lf\n", ((double)get_time_point() - whileTime) / 1000);
+
+#ifdef RUN_TIME_PRINT
+        printf("showTime is %lf\n", ((double)get_time_point() - showTime) / 1000);
+        printf("whileTime5 %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif // RUN_TIME_PRINT
 
         //下方if不经过
         if (outfile) {//不走
@@ -1476,8 +1498,18 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         free_detections(dets, nboxes);
         free_image(im);
         free_image(sized);
-        ////printf("freeTime is %lf\n", ((double)get_time_point() - freeTime) / 1000);
-        ////printf("whileTime6 %lf\n", ((double)get_time_point() - whileTime) / 1000);
+
+#ifdef RUN_TIME_PRINT
+        printf("freeTime is %lf\n", ((double)get_time_point() - freeTime) / 1000);
+        printf("whileTime6 %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif // RUN_TIME_PRINT
+
+#ifndef DETECT_EVERY_FRAME
+
+        }
+        //if结束
+#endif // !DETECT_EVERY_FRAME
+
 
         double waitTime = get_time_point();
         if (!dont_show) {
@@ -1486,8 +1518,8 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             destroy_all_windows_cv();  //魔改
 #endif//IMG_FROM_KINECT
         }
-        ////printf("waitTime is %lf\n", ((double)get_time_point() - waitTime) / 1000);
-        ////printf("whileTime7 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+        printf("waitTime is %lf\n", ((double)get_time_point() - waitTime) / 1000);
+        printf("whileTime7 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
         if (filename) break;//不走
         printf("-------whileTime%lf\n", ((double)get_time_point() - whileTime) / 1000);
     }//end while
