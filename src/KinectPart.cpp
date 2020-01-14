@@ -311,27 +311,26 @@ image darknetKinect_load_imageC(KinectColorFrameReaderC** pColorFrameReaderC)
     cv::Mat mColorImage = cv::Mat(1080, 1920, CV_8UC4);
     int mColorPoint = 1920 * 1080;
 
+    //翻转的图像
+    cv::Mat CIFlip = cv::Mat(1080, 1920, CV_8UC3);
+
     if (getKinectColorImageC(&(*pColorFrameReaderC), mColorPoint, &mColorImage) == true)
     {
-        cv::Mat CIResize = cv::Mat::zeros(360, 640, CV_8UC3);
-        //colorImage resize
-        resize(mColorImage, CIResize, CIResize.size());
-        imshow("resize", CIResize);
-        //cv::waitKey(33);
+
+        cv::Mat CIFResize = cv::Mat::zeros(360, 640, CV_8UC3);
+
+        cv::flip(mColorImage, CIFlip, 1);
+        //对翻转后的图像进行resize用以显示
+        cv::resize(CIFlip, CIFResize, CIFResize.size());
+        cv::imshow("resize", CIFResize);
     }
 
+    //转换色彩空间
     cv::Mat BGRColorImage = cv::Mat(1080, 1920, CV_8UC3);
-    cv::cvtColor(mColorImage, BGRColorImage, cv::COLOR_BGRA2RGB);//这句似乎是多余的
-    ////{//只为了输出BGR图片
-    ////    cv::Mat outImage = cv::Mat::zeros(540, 960, CV_8UC3);
-    ////    cv::resize(BGRColorImage, outImage, outImage.size());
-    ////    cv::imshow("RGB", outImage);
-    ////}
+    cv::cvtColor(CIFlip, BGRColorImage, cv::COLOR_BGRA2RGB);
+
     //这个函数应该返回im类型
-    cv::Mat BGRflipColorImage = cv::Mat(1080, 1920, CV_8UC3);
-    //反转彩色图像，然后识别，深度图像坐标反转在读取缓冲区做的
-    cv::flip(BGRColorImage, BGRflipColorImage, 1);
-    return mat_to_image_mogai(BGRflipColorImage);
+    return mat_to_image_mogai(BGRColorImage);
     //return mat_to_image_mogai(BGRColorImage);
 }
 
