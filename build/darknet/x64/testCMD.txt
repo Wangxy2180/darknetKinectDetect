@@ -1,1 +1,4 @@
 darknet.exe detector test data/ballball.data yolov3_ballball.cfg backup\thirdTrain\yolov3-voc-myObj_17000.weights
+
+这个是精简网络
+darknet.exe detector test data/ballball.data yolov3-tiny_ballball.cfg backup\thirdTrain\yolov3-voc-myObj_17000.weights
