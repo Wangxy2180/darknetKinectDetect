@@ -84,7 +84,7 @@ scripts/VOCdevkit/VOC2012/labels/*.txt
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+# *.dll
 
 # Fortran module files
 *.mod
