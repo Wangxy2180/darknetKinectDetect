@@ -94,7 +94,7 @@ scripts/VOCdevkit/VOC2012/labels/*.txt
 *.lai
 *.la
 *.a
-*.lib
+# *.lib
 
 # Executables
 *.exe
