@@ -10,7 +10,7 @@
 
 #include "KinectPart.h"
 //#define DETECT_EVERY_FRAME
-#define RUN_TIME_PRINT
+//#define RUN_TIME_PRINT
 //魔改
 
 
@@ -1518,8 +1518,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             destroy_all_windows_cv();  //魔改
 #endif//IMG_FROM_KINECT
         }
+#ifdef RUN_TIME_PRINT
         printf("waitTime is %lf\n", ((double)get_time_point() - waitTime) / 1000);
         printf("whileTime7 is %lf\n", ((double)get_time_point() - whileTime) / 1000);
+#endif //RUN_TIME_PRINT
         if (filename) break;//不走
         printf("-------whileTime%lf\n", ((double)get_time_point() - whileTime) / 1000);
     }//end while
