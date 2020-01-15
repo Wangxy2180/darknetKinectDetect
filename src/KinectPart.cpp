@@ -211,18 +211,19 @@ bool CSYSPixelToCameraInColor(CSYS3DInColor* CameraCSYSPoint, CSYS3DInColor pixe
 
 bool CSYSCameraToWorldInColor(CSYS3DInColor* innerWorldCoordinate, CSYS3DInColor cameraCSYSPoint)
 {
-    //第一组
-    //(*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5215) + cameraCSYSPoint.y*(0.0265) + cameraCSYSPoint.z*(-0.8525) + (418.7093);
-    //(*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8532) + cameraCSYSPoint.y*(0.0002) + cameraCSYSPoint.z*(-0.5217) + (1039.459);
-    //(*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0136) + cameraCSYSPoint.y*(-0.9996) + cameraCSYSPoint.z*(-0.0227) + (720.1693);
-    //第二组
-    //(*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5186) + cameraCSYSPoint.y*(0.0262) + cameraCSYSPoint.z*(-0.8546) + (420.1477);
-    //(*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8549) + cameraCSYSPoint.y*(0.0006) + cameraCSYSPoint.z*(-0.5188) + (1038.2340);
-    //(*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0131) + cameraCSYSPoint.y*(-0.9997) + cameraCSYSPoint.z*(-0.0227) + (719.3361);
+    float ext[3][4] = {
+        {-0.5211, 0.0307, -0.8530, 414.3972},
+        {0.8533, -0.0019, -0.5214, 1038.0010},
+        {-0.0176, -0.9995, -0.0252, 707.2265},
+    };
     //第三组
-    (*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5211) + cameraCSYSPoint.y*(0.0307) + cameraCSYSPoint.z*(-0.8530) + (414.3972);
-    (*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8533) + cameraCSYSPoint.y*(-0.0019) + cameraCSYSPoint.z*(-0.5214) + (1038.0010);
-    (*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0176) + cameraCSYSPoint.y*(-0.9995) + cameraCSYSPoint.z*(-0.0252) + (707.2265);
+    //(*innerWorldCoordinate).x = cameraCSYSPoint.x*(-0.5211) + cameraCSYSPoint.y*(0.0307) + cameraCSYSPoint.z*(-0.8530) + (414.3972);
+    //(*innerWorldCoordinate).y = cameraCSYSPoint.x*(0.8533) + cameraCSYSPoint.y*(-0.0019) + cameraCSYSPoint.z*(-0.5214) + (1038.0010);
+    //(*innerWorldCoordinate).z = cameraCSYSPoint.x*(-0.0176) + cameraCSYSPoint.y*(-0.9995) + cameraCSYSPoint.z*(-0.0252) + (707.2265);
+
+    (*innerWorldCoordinate).x = cameraCSYSPoint.x*ext[0][0] + cameraCSYSPoint.y*ext[0][1] + cameraCSYSPoint.z*ext[0][2] + ext[0][3];
+    (*innerWorldCoordinate).y = cameraCSYSPoint.x*ext[1][0] + cameraCSYSPoint.y*ext[1][1] + cameraCSYSPoint.z*ext[1][2] + ext[1][3];
+    (*innerWorldCoordinate).z = cameraCSYSPoint.x*ext[2][0] + cameraCSYSPoint.y*ext[2][1] + cameraCSYSPoint.z*ext[2][2] + ext[2][3];
     return true;
 }
 
